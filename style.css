@@ -1,0 +1,26 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+ul {
+    list-style-type: none;
+}
+
+ul > li {
+    display: inline-block;
+    margin-right: 150px;
+}
+
+.book-grid {
+    display: grid;
+    grid-template-rows: repeat(10, 1fr);
+}
+
+.book {
+    display: flex;
+}
+
+.book p {
+    display: inline-block;
+    margin-right: 50px;
+}
