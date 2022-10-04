@@ -24,3 +24,11 @@ ul > li {
     display: inline-block;
     margin-right: 50px;
 }
+
+.not-read {
+    background-color: red;
+}
+
+.read {
+    background-color: green;
+}

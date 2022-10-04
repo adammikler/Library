@@ -25,7 +25,7 @@ function addBookToLibrary(currentbook) {
     let title = titleInput.value;
     let numberPages = numberPagesInput.value;
     let author = authorInput.value;
-    let read = readInput.value;
+    let read = readInput.checked;
 
     //creates new object named book
     currentbook = new Book(read, numberPages, title, author);
@@ -37,12 +37,40 @@ function addBookToLibrary(currentbook) {
     displayBook(); 
 };
 
+//remove book from library
+function remove(bookBox, titleDisplay, authorDisplay, pageNumDisplay, readStatus, removeButton) {
+    bookBox.removeChild(titleDisplay);
+    bookBox.removeChild(authorDisplay);
+    bookBox.removeChild(pageNumDisplay);
+    bookBox.removeChild(readStatus);
+    bookBox.removeChild(removeButton);
+}
+
+//changes button value from read to not read
+function chanegReadStatus(readStatus) {
+    if (book.read == true) {
+        readStatus.classList.add('read');
+    } else {
+        readStatus.classList.add('not-read');
+    }
+    const changeRead = document.getElementById('display-read');
+    changeRead.addEventListener('click', (event) => {
+        if (readStatus.classList.contains('read') == true) {
+            readStatus.classList.replace('read', 'not-read');
+            book.read = false;
+        } else {
+            readStatus.classList.replace('not-read', 'read');
+            book.read = true;
+        }
+    });
+}
+
 //clears the input in form
 function clearInputs() {
     titleInput.value = '';
     numberPagesInput.value = '';
     authorInput.value = '';
-    readInput.value = '';
+    readInput.checked = false;
 };
 
 function displayBook() {
@@ -65,28 +93,42 @@ function displayBook() {
     const pageNumDisplay = document.createElement('p');
     pageNumDisplay.classList.add('display-pagecount');
 
-    const readStatus = document.createElement('p');
+    //adds button and event listener to change the value from read to not read
+    const readStatus = document.createElement('button');
     readStatus.classList.add('display-read');
+    readStatus.addEventListener('click', (event) => {
+        chanegReadStatus(readStatus);
+    });
+
+    //adds button and listener to remove book
+    const removeButton = document.createElement('button');
+    removeButton.classList.add('remove-button');
+    removeButton.addEventListener('click', (event) => {
+        remove(bookBox, titleDisplay, authorDisplay, pageNumDisplay, readStatus, removeButton);
+    });
 
     //adds the new P elements to the parent div
     bookBox.appendChild(titleDisplay);
     bookBox.appendChild(authorDisplay);
     bookBox.appendChild(pageNumDisplay);
     bookBox.appendChild(readStatus);
+    bookBox.appendChild(removeButton);
 
-    titleDisplay.innerHTML = "title";
-    authorDisplay.innerHTML = "author";
-    pageNumDisplay.innerHTML = "200";
-    readStatus.innerHTML = "Read"
+    book = library[currentbook];
 
+    titleDisplay.innerHTML = book.title;
+    authorDisplay.innerHTML = book.author;
+    pageNumDisplay.innerHTML = book.numberPages;
+    readStatus.innerHTML = book.read;
+    removeButton.innerHTML = "Remove Book";
 }
+
+let currentbook = 0;    //used to create ID for each book
 
 //adds event listener for submit button
 const submit = document.getElementById('submit');
 submit.addEventListener('click', (event) => {
     event.preventDefault();    //prevents form from clearing before info is used
-
-    let currentbook = 0;    //used to create ID for each book
 
     addBookToLibrary();  //creates new book on submit event
     currentbook += 1;   //incriments the current book to use for the ID of each book
