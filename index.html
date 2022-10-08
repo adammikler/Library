@@ -9,40 +9,38 @@
     <title>Document</title>
 </head>
 <body>
-    <h1 class="page-title">Your person library</h1>
+    <h1 class="page-title">Your Personal Library</h1>
 
     <form class="add-book" id="add-book">
-        <label>Author</label>
-        <input type="text" id="author" class="input" required>
-
-        <label>Page Count</label>
-        <input type="text" id="pagenum" class="input" required>
-
-        <label for="title">Title</label>
-        <input type="text" id="title" class="input" required>
-
-        <input type="checkbox" id="read" class="input">
+        <div>
+            <label for="title">Title</label>
+            <input type="text" id="title" class="input" required>
+        </div>
         
-        <button type="submit" id="submit" class="submit">Add Book</button>
+        <div>
+            <label>Author</label>
+            <input type="text" id="author" class="input" required>  
+        </div>
+        
+        <div>
+            <label>Number of Pages</label>
+            <input type="text" id="pagenum" class="input" required>
+        </div>
+
+        <div>
+            <label class="read-label">Read it?</label>
+            <input type="checkbox" id="read" class="input checkbox"><label for="read" class="switch"></label>
+        </div>
+
+        <div>
+           <button type="submit" id="submit" class="submit">Add Book +</button> 
+        </div>
     </form>
 
+    <h3 class="library-header">Your Books</h3>
+
     <div class="library">
-        <h2 class="library-header">Your books</h2>
         <div class="book-container" id="book-container">
-            <ul class="table-titles">
-                <li>Title</li>
-                <li>Author</li>
-                <li>Page Count</li>
-                <li>Read Status</li>
-            </ul>
-            <!--
-            <div class="book">
-                <p class="displaytitle">The Intelligent Investor</p>
-                <p class="displayauthor">Benjamin Graham</p>
-                <p class="display-pagecount">640</p>
-                <input type="checkbox" id="display-read">
-            </div>
-            -->
         </div>
     </div>
 </body>

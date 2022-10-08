@@ -44,25 +44,18 @@ function remove(bookBox, titleDisplay, authorDisplay, pageNumDisplay, readStatus
     bookBox.removeChild(pageNumDisplay);
     bookBox.removeChild(readStatus);
     bookBox.removeChild(removeButton);
+    bookContainer.removeChild(bookBox);
 }
 
 //changes button value from read to not read
 function chanegReadStatus(readStatus) {
-    if (book.read == true) {
-        readStatus.classList.add('read');
+    if (readStatus.innerHTML == 'Not Read') {
+        readStatus.innerHTML = 'Read';
+        book.read = true;
     } else {
-        readStatus.classList.add('not-read');
+        readStatus.innerHTML = 'Not Read';
+        book.read = false;
     }
-    const changeRead = document.getElementById('display-read');
-    changeRead.addEventListener('click', (event) => {
-        if (readStatus.classList.contains('read') == true) {
-            readStatus.classList.replace('read', 'not-read');
-            book.read = false;
-        } else {
-            readStatus.classList.replace('not-read', 'read');
-            book.read = true;
-        }
-    });
 }
 
 //clears the input in form
@@ -76,16 +69,16 @@ function clearInputs() {
 function displayBook() {
     //adds a new div to contain book values
     const bookDiv = document.createElement('div');  //creates the div
-    bookDiv.classList.add('book');  //div class book
-    bookDiv.setAttribute('id', 'bookDiv');  //div ID bookDiv
+    bookDiv.classList.add('book', currentbook);  //div class book
+    bookDiv.setAttribute('id', 'bookDiv' + currentbook);  //div ID bookDiv
 
     bookContainer.appendChild(bookDiv);  //adds the bookDiv to the book-container
 
-    const bookBox = document.getElementById('bookDiv'); //Selects the book div to add generate P elements within
+    const bookBox = document.getElementById('bookDiv' + currentbook); //Selects the book div to add generate P elements within
     //bookBox.classList.add("displayBook");   //adds displayBook class
 
     const titleDisplay = document.createElement('p');
-    titleDisplay.classList.add('displaytitle')
+    titleDisplay.classList.add('displaytitle',)
 
     const authorDisplay = document.createElement('p');
     authorDisplay.classList.add('displayauthor');
@@ -95,16 +88,22 @@ function displayBook() {
 
     //adds button and event listener to change the value from read to not read
     const readStatus = document.createElement('button');
+    readStatus.setAttribute('type', 'checkbox');
+    readStatus.classList.add('read');
+
+    const readLabel = document.createElement('label');
+    readLabel.setAttribute('for', 'read');
+
     readStatus.classList.add('display-read');
-    readStatus.addEventListener('click', (event) => {
+    readStatus.addEventListener('click', () => {
         chanegReadStatus(readStatus);
     });
 
     //adds button and listener to remove book
     const removeButton = document.createElement('button');
     removeButton.classList.add('remove-button');
-    removeButton.addEventListener('click', (event) => {
-        remove(bookBox, titleDisplay, authorDisplay, pageNumDisplay, readStatus, removeButton);
+    removeButton.addEventListener('click', () => {
+        remove(bookContainer, bookBox, titleDisplay, authorDisplay, pageNumDisplay, readStatus, removeButton);
     });
 
     //adds the new P elements to the parent div
@@ -112,14 +111,21 @@ function displayBook() {
     bookBox.appendChild(authorDisplay);
     bookBox.appendChild(pageNumDisplay);
     bookBox.appendChild(readStatus);
+    readStatus.appendChild(readLabel);
     bookBox.appendChild(removeButton);
 
     book = library[currentbook];
 
     titleDisplay.innerHTML = book.title;
     authorDisplay.innerHTML = book.author;
+
     pageNumDisplay.innerHTML = book.numberPages;
-    readStatus.innerHTML = book.read;
+    if (book.read == true) {
+        readStatus.innerHTML= 'Read';
+    } else {
+        readStatus.innerHTML= 'Not Read';
+    };
+
     removeButton.innerHTML = "Remove Book";
 }
 
@@ -132,10 +138,4 @@ submit.addEventListener('click', (event) => {
 
     addBookToLibrary();  //creates new book on submit event
     currentbook += 1;   //incriments the current book to use for the ID of each book
-
-    console.log(library);
 });
-
-function Main() {
-
-};

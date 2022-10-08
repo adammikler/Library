@@ -1,7 +1,33 @@
+/*imports three fonts from google fonts*/
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&family=Frank+Ruhl+Libre&family=Quicksand&display=swap');
+
+/*Font types and color variables*/
+:root {
+    --heading-font: 'Cormorant Garamond', serif;
+    --label-font: 'Quicksand', sans-serif;
+    --p-font: 'Frank Ruhl Libre', serif;
+    --header-color: #4D7280;
+    --tyle-color: #9EABB0;
+    --background-color: #DBDBDB;
+    --text-color: #363636;
+    --yes-color: #498875;
+}
+/*Main header font*/
 * {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--p-font);
+    color: var(--text-color);
 }
 
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--background-color);
+}
+
+/*global rules to remove styling from lists*/
 ul {
     list-style-type: none;
 }
@@ -11,24 +37,154 @@ ul > li {
     margin-right: 150px;
 }
 
-.book-grid {
-    display: grid;
-    grid-template-rows: repeat(10, 1fr);
+/*page title*/
+.page-title {
+    font-family: var(--heading-font);
+    background-color: var(--header-color);
+    margin-top: 0;
+    padding-top: 5vh;
+    padding-bottom: 2vh;
+    font-size: 8em;
+    font-weight: lighter;
+    width: 100%;
+    text-align: center;
 }
+
+/*Stacks the input and label elements*/
+
+input, label {
+    display: block;
+}
+
+label {
+    font-family: var(--label-font);
+    font-size: 2em;
+    padding-bottom: 15px;
+}
+
+input {
+    margin-top: 10px;
+    padding: 5px 20px 5px 5px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: var(--text-color);
+    font-size: 1.1em;
+}
+
+.add-book {
+    background-color: var(--tyle-color);
+    width: 70vw;
+    padding: 40px;
+    margin-left: 15vw;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-book div {
+    text-align: center;
+    align-content: center
+}
+
+/*Styles the checkbox*/
+.read-label {
+    padding-bottom: 0;
+    margin-bottom: 20px;
+}
+
+input[type=checkbox]{
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+.switch {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 90px;
+	height: 25px;
+	background: grey;
+	display: block;
+	border-radius: 100px;
+	position: relative;
+}
+
+.switch:after {
+	content: '';
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	width: 30px;
+	height: 30px;
+	background: #fff;
+	border-radius: 90px;
+	transition: 0.3s;
+}
+
+.checkbox:checked + label {
+	background: var(--yes-color);
+}
+
+.checkbox:checked + label:after {
+	left: calc(100% - 5px);
+	transform: translateX(-100%);
+}
+
+.checkbox:active:after {
+	width: 50px;
+}
+
+/*Styles submit button*/
+.submit {
+    background-color: white;
+    border-radius: 10px;
+    border: none;
+    font-size: 2em;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: var(--label-font);
+}
+
+/*Book display heading*/
+.library-header {
+    font-family: var(--heading-font);
+    font-size: 4em;
+    font-weight: lighter;
+    width: 100vw;
+    text-align: center;
+}
+
+/*book display*/
 
 .book {
+    background-color: var(--tyle-color);
+    border-radius: 10px;
+    padding: 40px;
+    width: 70vw;
+    margin-left: 15vw;
+    margin-bottom: 2vw;
+    font-size: 2em;
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.book p {
-    display: inline-block;
-    margin-right: 50px;
+.display-read {
+    padding: 5px;
+    border-radius: 10px;
+    border: none;
+    font-size: .8em;
 }
 
-.not-read {
-    background-color: red;
-}
-
-.read {
-    background-color: green;
+.remove-button {
+    background-color: white;
+    border-radius: 10px;
+    border: none;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: var(--label-font);
 }
